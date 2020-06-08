@@ -40,7 +40,9 @@ COPY --from=mmgBuild /usr/local/lib/libmmg* /usr/local/lib/
 
 FROM mmgBase AS elmerBuild
 
+ARG commit=latest
 RUN git clone https://www.github.com/ElmerCSC/elmerfem -b elmerice /usr/local/src/elmer/elmerfem
+RUN cd /usr/local/src/elmer/elmerfem && git reset --hard ${commit}
 RUN mkdir /usr/local/src/elmer/build
 RUN cd /usr/local/src/elmer/build && cmake -DWITH_ElmerIce:BOOL=TRUE -DWITH_ELMERGUI:BOOL=FALSE -DWITH_MPI:BOOL=TRUE -DWITH_Mumps:BOOL=TRUE -DWITH_LUA:BOOL=TRUE -DMMG_INCLUDE_DIR=/usr/local/include/mmg -DMMG_LIBRARY=/usr/local/lib/libmmg.so -DCMAKE_INSTALL_PREFIX=/usr/local/ ../elmerfem/
 RUN cd /usr/local/src/elmer/build && make install -j 4
