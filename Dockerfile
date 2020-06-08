@@ -40,7 +40,7 @@ COPY --from=mmgBuild /usr/local/lib/libmmg* /usr/local/lib/
 
 FROM mmgBase AS elmerBuild
 
-ARG gitCommit=latest
+ARG gitCommit=HEAD
 RUN git clone https://www.github.com/ElmerCSC/elmerfem -b elmerice /usr/local/src/elmer/elmerfem
 RUN cd /usr/local/src/elmer/elmerfem && git reset --hard $gitCommit
 RUN mkdir /usr/local/src/elmer/build
