@@ -5,5 +5,7 @@ if [[ $DOCKER_TAG != "latest" ]]; then
 else
 	commit="HEAD"
 fi
-
+echo ============== RUNNING CUSTOM BUILD HOOK =============== 
 echo docker build --build-arg gitCommit=$commit -f $DOCKERFILE_PATH -t $IMAGE_NAME .
+docker build --build-arg gitCommit=$commit -f $DOCKERFILE_PATH -t $IMAGE_NAME .
+echo ============== COMPLETED CUSTOM BUILD HOOK =============== 
